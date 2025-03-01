@@ -129,7 +129,7 @@
         document.getElementById('gridHeight').addEventListener('input', updatePiecesCount);
 
         async function generate() {
-            document.querySelector("html").style.cursor = "wait";
+            document.documentElement.style.cursor = 'wait';
             document.getElementById('output').innerHTML = '';
             
             const SQUARE_SIZE = 100;
@@ -155,6 +155,11 @@
                             img.onload = () => resolve(img);
                             img.src = e.target.result;
                         };
+                        reader.onerror = () => {
+                            document.documentElement.style.cursor = 'default';
+                            alert("Error. Try different background image.");
+                        };
+                        
                         reader.readAsDataURL(bgImage);
                     });
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -188,10 +193,14 @@
                 const url = URL.createObjectURL(blob);
                 img.src = url;
                 img.id = 'generatedImage';
-                document.getElementById('output').appendChild(img);
+
+                img.onload = () => {
+                    document.getElementById('output').appendChild(img);
+                    document.documentElement.style.cursor = 'default';
+                };
+                
             }, 'image/png');
 
-            document.querySelector("html").style.cursor = "default";
         }
 
         window.onload = generate;
