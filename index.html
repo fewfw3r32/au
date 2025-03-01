@@ -180,11 +180,14 @@
                 }
             }
 
-            const img = new Image();
-            img.src = canvas.toDataURL();
-            img.id = 'generatedImage';
-            document.getElementById('output').innerHTML = '';
-            document.getElementById('output').appendChild(img);
+            canvas.toBlob((blob) => {
+                const img = new Image();
+                const url = URL.createObjectURL(blob);
+                img.src = url;
+                img.id = 'generatedImage';
+                document.getElementById('output').innerHTML = '';
+                document.getElementById('output').appendChild(img);
+            }, 'image/png');
         }
 
         window.onload = generate;
