@@ -129,6 +129,8 @@
         document.getElementById('gridHeight').addEventListener('input', updatePiecesCount);
 
         async function generate() {
+            document.getElementById('output').innerHTML = '';
+            
             const SQUARE_SIZE = 100;
             const FONT_SIZE = 23;
             
@@ -185,7 +187,6 @@
                 const url = URL.createObjectURL(blob);
                 img.src = url;
                 img.id = 'generatedImage';
-                document.getElementById('output').innerHTML = '';
                 document.getElementById('output').appendChild(img);
             }, 'image/png');
         }
