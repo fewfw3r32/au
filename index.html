@@ -8,6 +8,9 @@
         html {
             height: 100%;
         }
+        html.wait * {
+            cursor: wait !important;
+        }
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -132,7 +135,7 @@
         document.getElementById('gridHeight').addEventListener('input', updatePiecesCount);
 
         async function generate() {
-            document.documentElement.style.cursor = 'wait';
+            document.documentElement.classList.add('wait');
             document.getElementById('output').innerHTML = '';
             
             const SQUARE_SIZE = 100;
@@ -157,12 +160,7 @@
                             const img = new Image();
                             img.onload = () => resolve(img);
                             img.src = e.target.result;
-                        };
-                        reader.onerror = () => {
-                            document.documentElement.style.cursor = 'default';
-                            alert("Error. Try different background image.");
-                        };
-                        
+                        };         
                         reader.readAsDataURL(bgImage);
                     });
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -199,7 +197,7 @@
 
                 img.onload = () => {
                     document.getElementById('output').appendChild(img);
-                    document.documentElement.style.cursor = 'default';
+                    document.documentElement.classList.remove('wait');
                 };
                 
             }, 'image/png');
