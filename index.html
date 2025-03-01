@@ -184,7 +184,7 @@
 
             for (let row = 0; row < gridHeight; row++) {
                 for (let col = 0; col < gridWidth; col++) {
-                    const number = row * gridWidth + col;
+                    const number = row * gridWidth + col + 1;
                     const x = col * SQUARE_SIZE + SQUARE_SIZE/2;
                     const y = row * SQUARE_SIZE + SQUARE_SIZE/2;
                     ctx.fillText(number.toString(), x, y);
